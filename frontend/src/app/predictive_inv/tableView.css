@@ -1,0 +1,65 @@
+/* Table View Styles */
+.table-container {
+  background: var(--bg-card);
+  border-radius: 12px;
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+}
+
+.dashboard-table thead {
+  background: var(--bg-secondary);
+}
+
+.dashboard-table th {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-secondary);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dashboard-table td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-primary);
+  color: var(--text-secondary);
+  transition: var(--transition-fast);
+}
+
+.dashboard-table tbody tr {
+  transition: var(--transition-fast);
+}
+
+.dashboard-table tbody tr:hover {
+  background: var(--bg-hover);
+}
+
+.dashboard-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+  .table-container {
+    overflow-x: auto;
+  }
+  
+  .dashboard-table {
+    min-width: 600px;
+  }
+  
+  .dashboard-table th,
+  .dashboard-table td {
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+  }
+}
