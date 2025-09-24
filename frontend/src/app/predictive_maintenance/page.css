@@ -1,0 +1,35 @@
+.container {
+  padding: 2rem;
+}
+.machineGrid {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.chartSection {
+  margin-top: 2rem;
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.pm-loading {
+  color: #00eaff;
+  font-size: 1.2rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+.pm-infoRow {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  background: #181c23;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  color: #b8eaff;
+}
+.pm-infoRow > div {
+  min-width: 120px;
+}

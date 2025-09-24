@@ -1,0 +1,18 @@
+.card {
+  background: #181c23;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  padding: 1.2rem 1.7rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s, background 0.2s;
+  color: #b8eaff;
+  border: 1px solid #232834;
+}
+.card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+  background: #232834;
+}
+.timestamp {
+  color: #6ecff6;
+  font-size: 0.95em;
+}

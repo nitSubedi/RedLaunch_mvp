@@ -1,11 +1,12 @@
 import express from 'express';
 import cors from 'cors';
-//import { authenticateJWT } from './utils/middleware.js';
 import inventoryRoutes from './routes/inventory.js';
 import documentsRoutes from './routes/documents.js';
 import sensorDataRoutes from './routes/sensor_data.js';
 import weatherRoutes from './routes/weather.js';
 import usageLogRoutes from './routes/usage_log.js';
+import authenticationRoutes from './routes/authentication.js';
+import maintenanceRoutes from './routes/maintenance.js';
 const app = express();
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -26,5 +27,7 @@ app.use('/documents', documentsRoutes);
 app.use('/sensor_data', sensorDataRoutes);
 app.use('/weather', weatherRoutes);
 app.use('/usage_log', usageLogRoutes);
-app.listen(process.env.PORT || 3001);   
+app.use('/auth', authenticationRoutes);
+app.use('/maintenance', maintenanceRoutes);
+app.listen(process.env.PORT || 3001);
 console.log(`Server running on port ${process.env.PORT || 3001}`);

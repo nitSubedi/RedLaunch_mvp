@@ -50,5 +50,26 @@ export async function add_Inventory(item_name: string, stock_level: number, loca
   return res.json();
 }
 
+export async function login(username: string, password: string) {
+  const res = await fetch('http://localhost:3001/auth/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, password }),
+  });
+  return res.json();
+}
 
+export async function fetchMachines() {
+  const res = await fetch('http://localhost:3001/maintenance/machines');
+  if (!res.ok) throw new Error('Failed to fetch machines');
+  return res.json();
+}
+
+export async function fetchMachineByID(machineID: string) {
+  const res = await fetch(`http://localhost:3001/maintenance/machine/${machineID}`);
+  if (!res.ok) throw new Error('Failed to fetch machine history');
+  return res.json();
+}
 

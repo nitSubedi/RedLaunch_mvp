@@ -1,0 +1,95 @@
+.chart {
+  background: #181c23;
+  border-radius: 10px;
+  padding: 1.5rem 1.5rem 1rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  color: #b8eaff;
+  margin-top: 12px;
+  margin-bottom: 1rem;
+  min-width: 350px;
+}
+
+.chart :global(.recharts-cartesian-axis-tick-value) {
+  fill: #b8eaff;
+  font-size: 0.95em;
+}
+
+.chart :global(.recharts-tooltip-label) {
+  color: #00eaff;
+}
+
+.chart :global(.recharts-tooltip-item) {
+  color: #b8eaff;
+}
+
+.chart :global(.recharts-cartesian-grid-horizontal line),
+.chart :global(.recharts-cartesian-grid-vertical line) {
+  stroke: #232834;
+}
+
+/* Modal overlay and box */
+.pm-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 18, 30, 0.85);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pm-modal {
+  background: #1e1e1e; /* match your dashboard style */
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 800px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  position: relative;
+}
+
+.pm-infoRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.pm-modal-backdrop {
+  position: fixed; /* stay on top of the page */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6); /* semi-transparent background */
+  display: flex;
+  align-items: center; /* center vertically */
+  justify-content: center; /* center horizontally */
+  z-index: 1000; /* higher than other content */
+}
+
+
+.pm-modal h2 {
+  color: #fff;
+  margin-bottom: 1.2rem;
+}
+
+.pm-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.pm-modal-close:hover {
+  color: #fff;
+}

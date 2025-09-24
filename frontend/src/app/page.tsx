@@ -1,10 +1,10 @@
 'use client';
 import styles from "./dashboard.module.css";
 import { useEffect, useState } from "react";
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
-import KpiPanel from './predictive_inv/KpiPanel'
-import {  InventoryItem } from '../app/predictive_inv/types';
-import { fetchInventory } from "../app/lib/apiClient";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from "recharts";
+import KpiPanel from './lib/components/kpiPanel';
+import { InventoryItem,RawInventoryItem } from './predictive_inv/types';
+import { fetchInventory } from "./lib/apiClient";
 
 const COLORS = {
   critical: "#ff4d4f",
@@ -24,13 +24,11 @@ export default function Home() {
     { name: "Warning", value: 0 },
     { name: "Normal", value: 0 },
   ]);
-    const [inventory, setInventory] = useState<InventoryItem[]>([]);
+  const [inventory, setInventory] = useState<InventoryItem[]>([]);
 
-
- useEffect(() => {
+  useEffect(() => {
     fetchInventory().then((data) => {
-      // Match the transformation logic from predictive_inv/page.tsx
-      const items: InventoryItem[] = (data.inventory || []).map((item: { id: string; item_name?: string; name?: string; category?: string; stock_level?: number; stock?: number; location?: string; last_updated?: string; optimal?: number; color?: string; lead_time?: number; supplier?: string }) => ({
+      const items: InventoryItem[] = (data.inventory || []).map((item: RawInventoryItem) => ({
         id: item.id?.toString(),
         category: item.item_name || item.name || item.category,
         stock: item.stock_level ?? item.stock,
@@ -40,7 +38,6 @@ export default function Home() {
         lastUpdated: item.last_updated || new Date().toISOString(),
         supplier: item.supplier,
         leadTime: item.lead_time ?? 7,
-        // usageTrend is not needed for the dashboard pie chart
       }));
       setInventory(items);
 
@@ -57,69 +54,28 @@ export default function Home() {
     });
   }, []);
 
+  // Example: Top 5 inventory items by stock for bar chart
+  const topItems = [...inventory]
+    .sort((a, b) => (b.stock ?? 0) - (a.stock ?? 0))
+    .slice(0, 5)
+    .map(item => ({
+      name: item.category,
+      Stock: item.stock,
+      Optimal: item.optimal,
+    }));
+
   return (
-    <div className={styles.pageContainer}>
-      <header className={styles.pageHeader}> EE0 </header>
-      <main className={styles.pageMain}>
-        <div className={styles.cardContainer}>
-          <a href="/predictive_inv" className={styles.dashboardCard}>
-  <span className={styles.cardIcon}>📊</span>
-  Predictive Inventory
-  <span className={styles.cardSubtext}>View predictions & analytics</span>
-
-  <div className={styles.cardChart}>
-    <ResponsiveContainer width="100%" height={120}>
-      <PieChart>
-        <Pie
-          data={statusData}
-          dataKey="value"
-          nameKey="name"
-          cx="50%"
-          cy="50%"
-          outerRadius={45}
-          label
-        >
-          {statusData.map((entry, idx) => (
-            <Cell
-              key={`cell-${idx}`}
-              fill={
-                entry.name === "Critical"
-                  ? COLORS.critical
-                  : entry.name === "Warning"
-                  ? COLORS.warning
-                  : COLORS.normal
-              }
-            />
-          ))}
-        </Pie>
-        <Tooltip />
-      </PieChart>
-    </ResponsiveContainer>
-  </div>
- 
-</a>
-  
-
-          <a href="" className={styles.dashboardCard}>
-            <span className={styles.cardIcon}>🛠️</span>
-            Predictive Maintenance Engine
-            <span className={styles.cardSubtext}>Monitor & Forecast Maintenance</span>
-          </a>
-           <div className={styles.kpiWrapper}>
-          <KpiPanel inventory={inventory} />
-        </div>
-          
-        </div>
-       
-      
-      </main>
-      
-         
+ <>
+        <header className={styles.pageHeader}>Dashboard Overview</header>
+        <main className={styles.pageMain}>
+          <section className={styles.kpiOverviewSection}>
+            <KpiPanel inventory={inventory} />
+          </section>
         
-      
-      <footer className={styles.pageFooter}>
-        &copy; {new Date().getFullYear()} RedLaunch. All rights reserved.
-      </footer>
-    </div>
+        </main>
+        <footer className={styles.pageFooter}>
+          &copy; {new Date().getFullYear()} RedLaunch. All rights reserved.
+        </footer>
+     </>
   );
 }
